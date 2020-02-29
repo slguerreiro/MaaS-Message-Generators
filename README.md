@@ -1,5 +1,5 @@
 # MaaS-Message-Generators
-Enterprise Integration / IST - 2019/2020 MaaS Kafka Message Generators to be used in the project.
+Enterprise Integration / IST - 2019/2020 MaaS Kafka Message Generators to be used in the project as simulator of clients performing actions in the MaaS (Mobility as a Service) platform.
 
 Firstly, verify if JAVA 8 is available, on your linux environment, using the command: 
 
@@ -19,10 +19,28 @@ where,
 --throughput: is the approximate maximum messages to be produced by minute and the default value is 10
 --typeMessage: is the type of message to be produced: JSON or XML, default value is JSON.
 ```
+
+The same applies to the generator of taxi usage messages:
+```
+java -jar MaaSMessageTaxiGenerator.jar
+```    
+where the same options are available:
+```
+MaaSMessageTaxiGenerator --broker-list <KafkaBrokerList with Ports> --topic <topic> --token-list <token-list> --throughput <value> --typeMessage <value>
+where, 
+--broker-list: is a broker list with ports (e.g.: kafka02.example.com:9092,kafka03.example.com:9092) and the default value is localhost:9092
+--topic: is the kafka topic to be provisioned and is mandatory
+--token-list: is a list of client tokens (e.g.: eudij3674fgo,dhjsyuyfdhi3,djkfjd8) and is mandatory
+--throughput: is the approximate maximum messages to be produced by minute and the default value is 10
+--typeMessage: is the type of message to be produced: JSON or XML, default value is JSON.
+```
+
 Some examples of the messages received in a Kafka broker (sent in JSON format):
 ```
 {"Metro":{"CheckIn":{ "Token": "t2", "Station": "Odivelas", "Timestamp": "2020-02-29 18:23:41.278" }}}
 {"Metro":{"CheckOut":{ "Token": "t2", "Station": "Alameda", "Timestamp": "2020-02-29 18:23:47.718" }}}
+{"Taxi":{"Usage":{ "Token": "t3", "Price": "70.51901", "Timestamp": "2020-02-29 19:45:58.638" }}}
+{"Taxi":{"Usage":{ "Token": "t1", "Price": "86.46376", "Timestamp": "2020-02-29 19:46:04.652" }}}
 ```
 
 Some examples of the messages received in a Kafka broker (sent in XML format):
@@ -42,4 +60,20 @@ Some examples of the messages received in a Kafka broker (sent in XML format):
   <Timestamp>2020-02-29 18:28:09.876</Timestamp>
  </CheckOut>
 </Metro>
+
+<Taxi>
+ <Usage>
+  <Token>t2</Token>
+  <Price>88.09835</Price>
+  <Timestamp>2020-02-29 19:46:22.782</Timestamp>
+ </Usage>
+</Taxi>
+
+<Taxi>
+ <Usage>
+  <Token>t3</Token>
+  <Price>17.185688</Price>
+  <Timestamp>2020-02-29 19:46:28.794</Timestamp>
+ </Usage>
+</Taxi>
 ```

@@ -35,12 +35,27 @@ where,
 --typeMessage: is the type of message to be produced: JSON or XML, default value is JSON.
 ```
 
+Finally, for the generator of bike usage messages:
+```
+java -jar MaaSMessageBikeGenerator.jar
+```
+where the same options are available:
+```
+MaaSMessageBikeGenerator --broker-list <KafkaBrokerList with Ports> --topic <topic> --token-list <token-list> --throughput <value> --typeMessage <value>
+where, 
+--broker-list: is a broker list with ports (e.g.: kafka02.example.com:9092,kafka03.example.com:9092) and the default value is localhost:9092
+--topic: is the kafka topic to be provisioned and is mandatory
+--token-list: is a list of client tokens (e.g.: eudij3674fgo,dhjsyuyfdhi3,djkfjd8) and is mandatory
+--throughput: is the approximate maximum messages to be produced by minute and the default value is 10
+--typeMessage: is the type of message to be produced: JSON or XML, default value is JSON.
+```
+
 Some examples of the messages received in a Kafka broker (sent in JSON format):
 ```
 {"Metro":{"CheckIn":{ "Token": "t2", "Station": "Odivelas", "Timestamp": "2020-02-29 18:23:41.278" }}}
 {"Metro":{"CheckOut":{ "Token": "t2", "Station": "Alameda", "Timestamp": "2020-02-29 18:23:47.718" }}}
 {"Taxi":{"Usage":{ "Token": "t3", "Price": "70.51901", "Timestamp": "2020-02-29 19:45:58.638" }}}
-{"Taxi":{"Usage":{ "Token": "t1", "Price": "86.46376", "Timestamp": "2020-02-29 19:46:04.652" }}}
+{"Bike":{"Usage":{ "Token": "t1.4", "Distance": "13.553344", "Timestamp": "2020-02-29 20:57:10.294" }}}
 ```
 
 Some examples of the messages received in a Kafka broker (sent in XML format):
@@ -69,11 +84,11 @@ Some examples of the messages received in a Kafka broker (sent in XML format):
  </Usage>
 </Taxi>
 
-<Taxi>
+<Bike>
  <Usage>
-  <Token>t3</Token>
-  <Price>17.185688</Price>
-  <Timestamp>2020-02-29 19:46:28.794</Timestamp>
+   <Token>t1.2</Token>
+   <Distance>6.123504</Distance>
+   <Timestamp>2020-02-29 20:57:30.276</Timestamp>
  </Usage>
-</Taxi>
+</Bike>
 ```

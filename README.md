@@ -95,7 +95,7 @@ Some examples of the messages received in a Kafka broker (sent in XML format):
 
 Remark: the Metro app guarantees the consistency of the check-in/out movements accordingly with the following rules:
 ```
-// If Check-In operation and Token not used then OK and mark token as used
+// If Check-In operation and Token is free then OK and mark token as used
 // else if Check-out operation and Token is used then OK and mark token as free
 // else NOK
 ```
